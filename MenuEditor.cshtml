@@ -1,0 +1,10 @@
+﻿@model YeniKendoUI.Models.MenuViewModel
+
+@(Html.Kendo().DropDownList().Name("Menuler")
+        .DataTextField("Title")
+        .DataValueField("MenuId")
+        .DataSource(d => d
+            .Read(r => r.Action("Index", "Menu"))
+            )
+)
+
