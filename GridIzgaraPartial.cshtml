@@ -1,0 +1,32 @@
+﻿@using YeniKendoUI.Models;
+
+@(Html.Kendo().Grid<AcilIslerViewModel>().Name("AcilIsler").Columns(c =>
+                        {
+                            c.Bound(a => a.IsinAdi).Title("İşin Adı");
+                            c.Bound(a => a.BildirimTarihi).ClientTemplate("#= kendo.toString(kendo.parseDate(BildirimTarihi), 'dd/MM/yyyy') #");
+                            c.Bound(a => a.CozumTarihi).ClientTemplate("#= kendo.toString(kendo.parseDate(CozumTarihi), 'dd/MM/yyyy') #");
+                            c.Bound(a => a.IsinSahibi).Title("İşin Sahibi");
+                            c.Bound(a => a.Menu).ClientTemplate("#: Menu.Title #").Title("Menu");
+                            c.Command(command => { command.Edit(); command.Destroy(); }).Title("Commands").Width(180);
+                        })
+                                                        .DataSource(d => d
+                                                        .Ajax()
+                                                        .Read(r => r.Action("Get", "AcilIs"))
+                                                        .Update(u => u.Action("Update", "AcilIs"))
+                                                        .Destroy(de => de.Action("Delete", "AcilIs"))
+                                                        .Create(c => c.Action("Create", "AcilIs"))
+                                                        .PageSize(7)
+                                                        .Model(m =>
+                                                        {
+                                                            m.Id(a => a.AcilIsId);
+                                                            m.Field(a => a.Menu).DefaultValue(
+                                                                ViewData["defaultMenu"] as MenuViewModel);
+                                                        })
+                                        )
+                                        .Pageable()
+                                        .Groupable()
+                                        .Sortable()
+                                        .Filterable()
+                                        .Editable(e => e.Mode(GridEditMode.InLine))
+                                        .ToolBar(t => t.Create())
+)

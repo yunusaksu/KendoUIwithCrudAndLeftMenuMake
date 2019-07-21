@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>Acil İşler</h1>
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="row">
+            <div class="demo-section k-content">
+                <ul id="treeview">
+                    <li data-expanded="true">
+                        <span class="k-sprite folder"></span>Ana Sayfa
+                    </li>
+                    <li data-expanded="false">
+                        <span class="k-sprite folder"></span>Inbox
+                        <ul>
+                            <li><a href="#" id="Is">Acil İşler</a></li>
+                            <li>Normal İşler</li>
+                        </ul>
+                    </li>
+                    <li data-expanded="true">
+                        <span class="k-sprite folder"></span>Completed
+                    </li>
+                </ul>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $("#treeview").kendoTreeView();
+                });
+            </script>
+            <style>
+                #treeview .k-sprite {
+                    background-image: url("../content/web/treeview/coloricons-sprite.png");
+                }
+
+                .rootfolder {
+                    background-position: 0 0;
+                }
+
+                .folder {
+                    background-position: 0 -16px;
+                }
+
+                .pdf {
+                    background-position: 0 -32px;
+                }
+
+                .html {
+                    background-position: 0 -48px;
+                }
+
+                .image {
+                    background-position: 0 -64px;
+                }
+            </style>
+        </div>
+    </div>
+    <div id="aktif" class="hidden col-md-10">
+        @Html.Partial("GridIzgaraPartial")
+    </div>
+</div>
+
+<script>
+    $(function () {
+        //$("#panelbar").kendoPanelBar();
+       // $("#IsSurecleri").kendoPanelBar();
+        $('#Is').click(function () {
+            let $this = $("#aktif").select();
+            if ($this.hasClass('hidden')) {
+                $this.removeClass("hidden").addClass("visible");
+            } else if ($this.hasClass('visible')) {
+                $this.removeClass("visible").addClass("hidden");
+            }
+        });
+    });
+</script>
+
+<br />
+
+<style type="text/css">
+    .hidden {
+        display: none;
+    }
+</style>
